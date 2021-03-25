@@ -1,7 +1,7 @@
 <!--
  * @Author: Chenxu
  * @Date: 2021-03-24 09:57:57
- * @LastEditTime: 2021-03-24 16:49:28
+ * @LastEditTime: 2021-03-26 00:19:59
  * @Msg: Nothing
 -->
 <template>
@@ -113,23 +113,24 @@ export default {
 						label: "通道名称",
 						prop: "channelName"
 					},
-          {
-						label: "通道名称",
-						prop: "channelName"
-					},
 					{
 						label: "MAC地址",
 						prop: "mac"
 					},
-          {
+					{
 						label: "检修人员",
-						prop: "userName",
-            width: 140
+						prop: "maintainerName",
+						width: 140
 					},
 					{
 						label: "设备状态",
 						prop: "status",
 						width: 100
+					},
+					{
+						label: "创建人",
+						prop: "userName",
+						width: 140
 					},
 					{
 						label: "操作",
