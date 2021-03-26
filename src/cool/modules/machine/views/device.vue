@@ -1,7 +1,7 @@
 <!--
  * @Author: Chenxu
  * @Date: 2021-03-24 09:57:57
- * @LastEditTime: 2021-03-26 00:51:11
+ * @LastEditTime: 2021-03-26 17:04:10
  * @Msg: Nothing
 -->
 <template>
@@ -39,7 +39,7 @@
 		</el-row>
 
 		<!-- 新增、编辑 -->
-		<cl-upsert ref="upsert" v-bind="upsert">
+		<cl-upsert :on-open="onUpsertOpen" ref="upsert" v-bind="upsert">
 			<template #slot-name="{ scope }">
 				<el-input v-model="scope.name"></el-input>
 			</template>
@@ -48,6 +48,11 @@
 			</template>
 			<template #slot-mac="{ scope }">
 				<el-input v-model="scope.mac"></el-input>
+			</template>
+      <template #slot-maintainer="{ scope }">
+				<el-select clearable v-model="scope.maintainer" placeholder="请选择">
+					<el-option v-for="item in lowerUserList" :key="item.id" :label="item.name" :value="item.id"> </el-option>
+				</el-select>
 			</template>
 			<template #slot-status="{ scope }">
 				<el-select v-model="scope.status" placeholder="请选择">
@@ -63,6 +68,7 @@
 export default {
   data () {
     return {
+      lowerUserList: [],
       // 新增、编辑配置
       upsert: {
         items: [
@@ -85,6 +91,13 @@ export default {
             prop: "mac",
             component: {
               name: "slot-mac"
+            }
+          },
+          {
+            label: "指派检修员",
+            prop: "maintainer",
+            component: {
+              name: "slot-maintainer"
             }
           },
           {
@@ -142,18 +155,18 @@ export default {
       }
     };
   },
-  created () {
-    this.getUserList()
-  },
   methods: {
+    onUpsertOpen () {
+      this.getUserList()
+    },
     onLoad ({ ctx, app }) {
       ctx.service(this.$service.device).done();
       app.refresh();
     },
     async getUserList () {
       try {
-        const { data } = await this.$service.user.list()
-        console.log(data)
+        const data = await this.$service.system.user.list()
+        this.lowerUserList = data
       } catch (error) {
         console.log(error)
       }
