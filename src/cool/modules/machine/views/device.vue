@@ -1,7 +1,7 @@
 <!--
  * @Author: Chenxu
  * @Date: 2021-03-24 09:57:57
- * @LastEditTime: 2021-03-26 17:04:10
+ * @LastEditTime: 2021-03-30 17:05:41
  * @Msg: Nothing
 -->
 <template>
@@ -143,7 +143,12 @@ export default {
           {
             label: "创建人",
             prop: "userName",
-            width: 140
+            width: 120
+          },
+           {
+            label: "创建时间",
+            prop: "createTime",
+            width: 150
           },
           {
             label: "操作",
