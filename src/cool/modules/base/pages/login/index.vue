@@ -24,7 +24,7 @@
 					></el-input>
 				</el-form-item>
 
-				<el-form-item label="验证码" class="captcha">
+				<!-- <el-form-item label="验证码" class="captcha">
 					<el-input
 						placeholder="请输入图片验证码"
 						maxlength="4"
@@ -39,7 +39,7 @@
 						v-model="form.captchaId"
 						@change="captchaChange"
 					></captcha>
-				</el-form-item>
+				</el-form-item> -->
 			</el-form>
 
 			<el-button round size="mini" class="submit-btn" @click="next" :loading="saving"
@@ -53,67 +53,67 @@
 import Captcha from "./components/captcha";
 
 export default {
-	components: {
-		Captcha
-	},
+  components: {
+    Captcha
+  },
 
-	data() {
-		return {
-			form: {
-				username: "admin",
-				password: "123456",
-				captchaId: "",
-				verifyCode: ""
-			},
-			saving: false
-		};
-	},
+  data () {
+    return {
+      form: {
+        username: "admin",
+        password: "123456",
+        captchaId: "",
+        verifyCode: ""
+      },
+      saving: false
+    };
+  },
 
-	methods: {
-		captchaChange() {
-			this.form.verifyCode = "";
-		},
+  methods: {
+    captchaChange () {
+      this.form.verifyCode = "";
+    },
 
-		async next() {
-			const { username, password, verifyCode } = this.form;
+    async next () {
+      const { username, password, verifyCode } = this.form;
 
-			if (!username) {
-				return this.$message.warning("用户名不能为空");
-			}
+      if (!username) {
+        return this.$message.warning("用户名不能为空");
+      }
 
-			if (!password) {
-				return this.$message.warning("密码不能为空");
-			}
+      if (!password) {
+        return this.$message.warning("密码不能为空");
+      }
 
-			if (!verifyCode) {
-				return this.$message.warning("图片验证码不能为空");
-			}
+      // if (!verifyCode) {
+      //   return this.$message.warning("图片验证码不能为空");
+      // }
 
-			this.saving = true;
+      this.saving = true;
 
-			try {
-				// 登录
-				await this.$store.dispatch("userLogin", this.form);
+      try {
+        // 登录
+        await this.$store.dispatch("userLogin", this.form);
 
-				// 用户信息
-				await this.$store.dispatch("userInfo");
+        // 用户信息
+        await this.$store.dispatch("userInfo");
 
-				// 权限菜单
-				let [first] = await this.$store.dispatch("permMenu");
+        // 权限菜单
+        let [first] = await this.$store.dispatch("permMenu");
 
-				if (!first) {
-					this.$message.error("该账号没有权限");
-				} else {
-					this.$router.push("/");
-				}
-			} catch (err) {
-				this.$message.error(err);
-				this.$refs.captcha.refresh();
-			}
+        if (!first) {
+          this.$message.error("该账号没有权限");
+        } else {
+          this.$router.push("/");
+        }
+      } catch (err) {
+        this.$message.error(err);
+        this.$refs.captcha.refresh();
+      }
 
-			this.saving = false;
-		}
-	}
+      this.saving = false;
+    }
+  }
 };
 </script>
 
