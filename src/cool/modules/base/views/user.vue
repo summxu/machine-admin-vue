@@ -209,18 +209,18 @@ export default {
 			},
 			upsert: {
 				items: [
-					{
-						prop: "headImg",
-						label: "头像",
-						span: 24,
-						component: {
-							name: "cl-upload",
-							props: {
-								text: "选择头像",
-								icon: "el-icon-picture"
-							}
-						}
-					},
+					// {
+					// 	prop: "headImg",
+					// 	label: "头像",
+					// 	span: 24,
+					// 	component: {
+					// 		name: "cl-upload",
+					// 		props: {
+					// 			text: "选择头像",
+					// 			icon: "el-icon-picture"
+					// 		}
+					// 	}
+					// },
 					{
 						prop: "name",
 						label: "姓名",
@@ -236,25 +236,25 @@ export default {
 							message: "姓名不能为空"
 						}
 					},
-					{
-						prop: "nickName",
-						label: "昵称",
-						span: 12,
-						component: {
-							name: "el-input",
-							attrs: {
-								placeholder: "请填写昵称"
-							}
-						},
-						rules: {
-							required: true,
-							message: "昵称不能为空"
-						}
-					},
+					// {
+					// 	prop: "nickName",
+					// 	label: "昵称",
+					// 	span: 12,
+					// 	component: {
+					// 		name: "el-input",
+					// 		attrs: {
+					// 			placeholder: "请填写昵称"
+					// 		}
+					// 	},
+					// 	rules: {
+					// 		required: true,
+					// 		message: "昵称不能为空"
+					// 	}
+					// },
 					{
 						prop: "username",
 						label: "用户名",
-						span: 12,
+						span: 24,
 						component: {
 							name: "el-input",
 							attrs: {
@@ -297,7 +297,7 @@ export default {
 							name: "cl-role-select",
 							props: {
 								props: {
-									"multiple-limit": 3
+									"multiple-limit": 1
 								}
 							}
 						},
