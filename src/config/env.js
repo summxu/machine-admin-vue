@@ -37,7 +37,7 @@ export const iconfontUrl = ``;
 
 // 程序配置参数
 export const app = store.get("__app__") || {
-	name: "COOL-ADMIN",
+	name: "闸机管理系统",
 
 	conf: {
 		showAMenu: false, // 是否显示一级菜单栏
