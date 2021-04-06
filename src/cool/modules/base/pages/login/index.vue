@@ -1,8 +1,9 @@
 <template>
 	<div class="page-login">
 		<div class="box">
-			<img class="logo" src="../../static/images/logo.png" alt="" />
-			<p class="desc">COOL ADMIN是一款快速开发后台权限管理系统</p>
+			<!-- <img class="logo" src="../../static/images/logo.png" alt="" /> -->
+      <p class="logo-text">闸机管理系统</p>
+			<!-- <p class="desc">海内存知己 天涯若比邻</p> -->
 
 			<el-form ref="form" class="form" size="medium" :disabled="saving">
 				<el-form-item label="用户名">
@@ -139,6 +140,14 @@ export default {
 			height: 50px;
 			margin-bottom: 20px;
 		}
+
+    .logo-text {
+      color: #fff;
+			font-size: 38px;
+      font-weight: 700;
+			margin-bottom: 50px;
+			letter-spacing: 5px;
+    }
 
 		.desc {
 			color: #ccc;
