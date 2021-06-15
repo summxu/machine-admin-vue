@@ -1,7 +1,7 @@
 <!--
  * @Author: Chenxu
  * @Date: 2021-03-24 09:57:57
- * @LastEditTime: 2021-03-30 17:05:41
+ * @LastEditTime: 2021-06-15 23:17:23
  * @Msg: Nothing
 -->
 <template>
@@ -40,6 +40,9 @@
 
 		<!-- 新增、编辑 -->
 		<cl-upsert :on-open="onUpsertOpen" ref="upsert" v-bind="upsert">
+			<template #slot-clientid="{ scope }">
+				<el-input v-model="scope.clientid"></el-input>
+			</template>
 			<template #slot-name="{ scope }">
 				<el-input v-model="scope.name"></el-input>
 			</template>
@@ -49,9 +52,15 @@
 			<template #slot-mac="{ scope }">
 				<el-input v-model="scope.mac"></el-input>
 			</template>
-      <template #slot-maintainer="{ scope }">
+			<template #slot-maintainer="{ scope }">
 				<el-select clearable v-model="scope.maintainer" placeholder="请选择">
-					<el-option v-for="item in lowerUserList" :key="item.id" :label="item.name" :value="item.id"> </el-option>
+					<el-option
+						v-for="item in lowerUserList"
+						:key="item.id"
+						:label="item.name"
+						:value="item.id"
+					>
+					</el-option>
 				</el-select>
 			</template>
 			<template #slot-status="{ scope }">
@@ -72,6 +81,13 @@ export default {
       // 新增、编辑配置
       upsert: {
         items: [
+          {
+            label: "设备标识",
+            prop: "name",
+            component: {
+              name: "slot-clientid"
+            }
+          },
           {
             label: "设备名称",
             prop: "name",
@@ -119,6 +135,10 @@ export default {
             width: 60
           },
           {
+            label: "设备标识",
+            prop: "clientid"
+          },
+          {
             label: "设备名称",
             prop: "name"
           },
@@ -145,7 +165,7 @@ export default {
             prop: "userName",
             width: 120
           },
-           {
+          {
             label: "创建时间",
             prop: "createTime",
             width: 150
