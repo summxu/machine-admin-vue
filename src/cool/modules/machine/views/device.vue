@@ -22,12 +22,10 @@
 			<!-- 数据表格 -->
 			<cl-table v-bind="table">
 				<template #column-status="{ scope }">
-					<el-tag v-if="scope.row.status === 1" size="mini" type="success" effect="dark">
+					<el-tag v-if="scope.row.status" size="mini" type="success" effect="dark">
 						在线
 					</el-tag>
-					<el-tag v-if="scope.row.status === 2" size="mini" type="danger" effect="dark">
-						离线
-					</el-tag>
+					<el-tag v-else size="mini" type="danger" effect="dark"> 离线 </el-tag>
 				</template>
 			</cl-table>
 		</el-row>
@@ -38,10 +36,22 @@
 			<cl-pagination />
 		</el-row>
 
+		<cl-dialog title="指令" width="500px" :visible.sync="orderShow">
+			<el-row v-for="item in instructList" :key="item.id">
+				<el-button
+					@click="sendInstruct(item.code)"
+					style="width: 100%; margin-bottom: 10px"
+					size="small"
+					type="primary"
+					>{{ item.codeString }}</el-button
+				>
+			</el-row>
+		</cl-dialog>
+
 		<!-- 新增、编辑 -->
 		<cl-upsert :on-open="onUpsertOpen" ref="upsert" v-bind="upsert">
 			<template #slot-clientid="{ scope }">
-				<el-input v-model="scope.clientid"></el-input>
+				<el-input :disabled="scope.id" v-model="scope.clientid"></el-input>
 			</template>
 			<template #slot-name="{ scope }">
 				<el-input v-model="scope.name"></el-input>
@@ -63,12 +73,6 @@
 					</el-option>
 				</el-select>
 			</template>
-			<template #slot-status="{ scope }">
-				<el-select v-model="scope.status" placeholder="请选择">
-					<el-option label="上线" :value="1"> </el-option>
-					<el-option label="下线" :value="2"> </el-option>
-				</el-select>
-			</template>
 		</cl-upsert>
 	</cl-crud>
 </template>
@@ -77,13 +81,16 @@
 export default {
   data () {
     return {
+      orderShow: false,
+      tempRow: {},
+      instructList: [],
       lowerUserList: [],
       // 新增、编辑配置
       upsert: {
         items: [
           {
             label: "设备标识",
-            prop: "name",
+            prop: "clientid",
             component: {
               name: "slot-clientid"
             }
@@ -114,14 +121,6 @@ export default {
             prop: "maintainer",
             component: {
               name: "slot-maintainer"
-            }
-          },
-          {
-            label: "设备状态",
-            prop: "status",
-            value: 1,
-            component: {
-              name: "slot-status"
             }
           }
         ]
@@ -174,15 +173,47 @@ export default {
             label: "操作",
             type: "op",
             align: "center",
-            buttons: ["edit", "delete"]
+            buttons: ["edit", "delete", ({ h, scope }) => {
+              if (!scope.row.status) return null
+              return h(
+                "el-button",
+                {
+                  props: {
+                    size: "mini",
+                    type: "text"
+                  },
+                  on: {
+                    click: async () => {
+                      const data = await this.$service.instruct.list({ type: 1 })
+                      this.instructList = data
+                      this.orderShow = true
+                      this.tempRow = scope.row
+                    }
+                  }
+                },
+                "指令"
+              )
+            }]
           }
         ]
       }
     };
   },
   methods: {
+    async sendInstruct (code) {
+      try {
+        const data = await this.$service.mqtt.sendmsg({
+          topic: this.tempRow.clientid,
+          code
+        })
+        this.$message.success('指令发送成功!')
+      } catch (error) {
+        this.$message.error(error)
+      }
+
+    },
     onUpsertOpen () {
-      this.getUserList()
+      this.getUserList();
     },
     onLoad ({ ctx, app }) {
       ctx.service(this.$service.device).done();
@@ -190,10 +221,10 @@ export default {
     },
     async getUserList () {
       try {
-        const data = await this.$service.system.user.list()
-        this.lowerUserList = data
+        const data = await this.$service.system.user.list();
+        this.lowerUserList = data;
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
   }
