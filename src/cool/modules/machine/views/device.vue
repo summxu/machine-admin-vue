@@ -207,6 +207,7 @@ export default {
           code
         })
         this.$message.success('指令发送成功!')
+        this.orderShow = false
       } catch (error) {
         this.$message.error(error)
       }

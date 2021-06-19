@@ -14,6 +14,19 @@
 			<!-- 删除按钮 -->
 			<cl-multi-delete-btn />
 			<cl-flex1 />
+			<cl-query
+				field="type"
+				:list="[
+					{
+						label: '指令',
+						value: 1
+					},
+					{
+						label: '上报',
+						value: 2
+					}
+				]"
+			></cl-query>
 			<!-- 关键字搜索 -->
 			<cl-search-key />
 		</el-row>
@@ -41,7 +54,7 @@
 		<!-- 新增、编辑 -->
 		<cl-upsert ref="upsert" v-bind="upsert">
 			<template #slot-code="{ scope }">
-				<el-input  v-model="scope.code"></el-input>
+				<el-input v-model="scope.code"></el-input>
 			</template>
 			<template #slot-codeString="{ scope }">
 				<el-input v-model="scope.codeString"></el-input>
@@ -102,6 +115,7 @@ export default {
           },
           {
             label: "指令说明",
+            align: 'left',
             prop: "codeString"
           },
           {
