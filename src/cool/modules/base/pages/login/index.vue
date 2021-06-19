@@ -2,7 +2,7 @@
 	<div class="page-login">
 		<div class="box">
 			<!-- <img class="logo" src="../../static/images/logo.png" alt="" /> -->
-      <p class="logo-text">闸机管理系统</p>
+			<p class="logo-text">闸机管理系统</p>
 			<!-- <p class="desc">海内存知己 天涯若比邻</p> -->
 
 			<el-form ref="form" class="form" size="medium" :disabled="saving">
@@ -61,8 +61,8 @@ export default {
   data () {
     return {
       form: {
-        username: "admin",
-        password: "123456",
+        username: "",
+        password: "",
         captchaId: "",
         verifyCode: ""
       },
@@ -141,13 +141,13 @@ export default {
 			margin-bottom: 20px;
 		}
 
-    .logo-text {
-      color: #fff;
+		.logo-text {
+			color: #fff;
 			font-size: 38px;
-      font-weight: 700;
+			font-weight: 700;
 			margin-bottom: 50px;
 			letter-spacing: 5px;
-    }
+		}
 
 		.desc {
 			color: #ccc;

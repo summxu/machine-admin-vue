@@ -1,8 +1,13 @@
+<!--
+ * @Author: Chenxu
+ * @Date: 2021-03-24 20:01:22
+ * @LastEditTime: 2021-06-19 17:02:10
+-->
 <template>
 	<div class="app-slider">
 		<div class="app-slider__logo" @click="toHome">
 			<img src="@/assets/icon/logo/silder-simple.png" />
-			<span v-if="!menuCollapse || browser.isMini">{{ app.name }}</span>
+			<span v-if="!menuCollapse || browser.isMini">闸机管理系统</span>
 		</div>
 
 		<div class="app-slider__menu">
@@ -15,15 +20,15 @@
 import { mapGetters } from "vuex";
 
 export default {
-	computed: {
-		...mapGetters(["menuCollapse", "browser", "app"])
-	},
+  computed: {
+    ...mapGetters(["menuCollapse", "browser", "app"])
+  },
 
-	methods: {
-		toHome() {
-			// location.href = "https://cool-js.com/";
-		}
-	}
+  methods: {
+    toHome () {
+      // location.href = "https://cool-js.com/";
+    }
+  }
 };
 </script>
 
