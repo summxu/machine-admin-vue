@@ -2,22 +2,22 @@
 	<cl-scrollbar>
 		<div class="home">
 			<el-row :gutter="15">
-				<el-col :lg="6" :md="12" :xs="24">
+				<el-col :lg="8" :md="12" :xs="24">
 					<div class="card">
 						<count-sales></count-sales>
 					</div>
 				</el-col>
-				<el-col :lg="6" :md="12" :xs="24">
+				<el-col :lg="8" :md="12" :xs="24">
 					<div class="card">
 						<count-views></count-views>
 					</div>
 				</el-col>
-				<el-col :lg="6" :md="12" :xs="24">
+				<!-- <el-col :lg="8" :md="12" :xs="24">
 					<div class="card">
 						<count-paid></count-paid>
 					</div>
-				</el-col>
-				<el-col :lg="6" :md="12" :xs="24">
+				</el-col> -->
+				<el-col :lg="8" :md="12" :xs="24">
 					<div class="card">
 						<count-effect></count-effect>
 					</div>

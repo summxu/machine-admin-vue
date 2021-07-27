@@ -2,8 +2,8 @@
 	<div class="count-sales">
 		<div class="card">
 			<div class="card__header">
-				<span class="label">总销售额</span>
-				<span class="value">￥15920</span>
+				<span class="label">当前工单</span>
+				<span class="value">15920</span>
 			</div>
 
 			<div class="card__container">
@@ -29,8 +29,8 @@
 			</div>
 
 			<div class="card__footer">
-				<span class="label">日销售额</span>
-				<span class="value">￥1298.01</span>
+				<span class="label">已处工单</span>
+				<span class="value">1298</span>
 			</div>
 		</div>
 	</div>

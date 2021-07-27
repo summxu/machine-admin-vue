@@ -1,18 +1,18 @@
 <template>
-	<div class="tab-chart">
-		<div class="tab-chart__header">
-			<ul class="tab-chart__tab">
-				<li class="active">销售额</li>
-				<li>访问量</li>
-			</ul>
+  <div class="tab-chart">
+    <div class="tab-chart__header">
+      <ul class="tab-chart__tab">
+        <li class="active">销售额</li>
+        <li>访问量</li>
+      </ul>
 
-			<span class="tab-chart__year">2020</span>
-		</div>
+      <span class="tab-chart__year">2020</span>
+    </div>
 
-		<div class="tab-chart__container">
-			<vue-echarts :options="chartOptions" autoresize></vue-echarts>
-		</div>
-	</div>
+    <div class="tab-chart__container">
+      <vue-echarts :options="chartOptions" autoresize></vue-echarts>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -34,73 +34,28 @@ export default {
 					containLabel: true
 				},
 				xAxis: {
-					type: "category",
-					data: [],
-					offset: 5,
-					axisLine: {
-						show: false
-					},
-					axisTick: {
-						show: false
-					}
+					show: false
 				},
 				yAxis: {
-					type: "value",
-					offset: 20,
-					splitLine: {
-						show: false
-					},
-					axisTick: {
-						show: false
-					},
-					axisLine: {
-						show: false
-					}
+					show: false
 				},
-				tooltip: {
-					trigger: "axis",
-					formatter: (comp, value) => {
-						const [serie] = comp;
 
-						return `${serie.seriesName}：${serie.value}`;
-					},
-					axisPointer: {
-						show: true,
-						status: "shadow",
-						z: -1,
-						shadowStyle: {
-							color: "#E6F7FF"
-						},
-						type: "shadow"
-					},
-					extraCssText: "width:120px; white-space:pre-wrap"
-				},
 				series: [
 					{
-						barWidth: 25,
-						name: "付款笔数",
-						type: "bar",
-						data: [],
 						itemStyle: {
-							normal: {
-								color: "#4165d7"
-							}
-						}
-					},
-					{
-						type: "bar",
-						barWidth: 25,
-						xAxisIndex: 0,
-						barGap: "-100%",
-						data: [],
-						itemStyle: {
-							normal: {
-								color: "#f1f1f9"
+							color: (seriesIndex, dataIndex, data, value) => {
+								console.log(seriesIndex);
+								return "#36CBCB";
+								// F2637B
 							}
 						},
-						zlevel: -1
+						symbolSize: 15,
+						type: "scatter"
 					}
-				]
+				],
+				tooltip: {
+					position: "top"
+				}
 			}
 		};
 	},
@@ -113,7 +68,7 @@ export default {
 		"browser.isMini": {
 			immediate: true,
 			handler(v) {
-				this.chartOptions.series.map(e => {
+				this.chartOptions.series.map((e) => {
 					e.barWidth = v ? 15 : 25;
 				});
 			}
@@ -121,11 +76,18 @@ export default {
 	},
 
 	created() {
-		this.chartOptions.xAxis.data = new Array(12).fill(1).map((e, i) => i + 1 + "月");
-		this.chartOptions.series[0].data = new Array(12)
-			.fill(1)
-			.map(() => parseInt(Math.random() * 100));
-		this.chartOptions.series[1].data = new Array(12).fill(100);
+		this.chartOptions.series[0].data = [];
+		
+		// for (let k = 0; k < 1000; k++) {
+		// 	for (let index = 0; index < 100; index++) {
+		// 		for (let j = 0; j < 100; j++) {
+		// 			this.chartOptions.series[0].data[k] = {
+		// 				name: k,
+		// 				value: [index, j]
+		// 			};
+		// 		}
+		// 	}
+		// }
 	}
 };
 </script>
