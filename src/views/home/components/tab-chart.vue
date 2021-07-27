@@ -44,7 +44,7 @@ export default {
 					{
 						itemStyle: {
 							color: (seriesIndex, dataIndex, data, value) => {
-								console.log(seriesIndex);
+								// console.log(seriesIndex);
 								return "#36CBCB";
 								// F2637B
 							}
@@ -77,17 +77,17 @@ export default {
 
 	created() {
 		this.chartOptions.series[0].data = [];
-		
-		// for (let k = 0; k < 1000; k++) {
-		// 	for (let index = 0; index < 100; index++) {
-		// 		for (let j = 0; j < 100; j++) {
-		// 			this.chartOptions.series[0].data[k] = {
-		// 				name: k,
-		// 				value: [index, j]
-		// 			};
-		// 		}
-		// 	}
-		// }
+
+		for (let index = 0; index < 10; index++) {
+			for (let j = 0; j < 2; j++) {
+				this.chartOptions.series[0].data.push({
+					name: j + index,
+					value: [index, j]
+				});
+			}
+		}
+
+		console.log(this.chartOptions);
 	}
 };
 </script>
