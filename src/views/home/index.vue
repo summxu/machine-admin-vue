@@ -25,19 +25,19 @@
 			</el-row>
 
 			<el-row :gutter="15">
-				<el-col :lg="14" :xs="24">
+				<el-col :lg="24" :xs="24">
 					<div class="card">
 						<tab-chart></tab-chart>
 					</div>
 				</el-col>
-				<el-col :lg="10" :xs="24">
+				<!-- <el-col :lg="10" :xs="24">
 					<div class="card">
 						<sales-rank></sales-rank>
 					</div>
-				</el-col>
+				</el-col> -->
 			</el-row>
 
-			<el-row :gutter="15">
+			<!-- <el-row :gutter="15">
 				<el-col :lg="14" :sm="24">
 					<div class="card card--last">
 						<hot-search></hot-search>
@@ -48,7 +48,7 @@
 						<category-ratio></category-ratio>
 					</div>
 				</el-col>
-			</el-row>
+			</el-row> -->
 		</div>
 	</cl-scrollbar>
 </template>
