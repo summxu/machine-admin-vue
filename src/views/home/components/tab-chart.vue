@@ -9,7 +9,10 @@
     </div>
 
     <div class="tab-chart__container">
-      <vue-echarts :options="chartOptions" autoresize></vue-echarts>
+      <!-- <vue-echarts :options="chartOptions" autoresize></vue-echarts> -->
+      <div class="imgs">
+        <div class="img-item" v-for="(item,index) in this.chartOptions.series[0].data" :key="index" :style="item.style()"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -69,15 +72,15 @@ export default {
 				tooltip: {
 					position: "top",
 					formatter: ({ data }) => {
-						let statusStr = '在线';
+						let statusStr = "在线";
 						if (data.status() === 1) {
-							statusStr = '离线'
+							statusStr = "离线";
 						}
 						if (data.status() === 2) {
-							statusStr = '有一般警告'
+							statusStr = "有一般警告";
 						}
 						if (data.status() === 3) {
-							statusStr = '有严重警告'
+							statusStr = "有严重警告";
 						}
 						return `${data.name} ${statusStr}`;
 					}
@@ -121,6 +124,17 @@ export default {
 							return 0;
 						}
 					},
+					style: () => {
+						if (j + index < 8) {
+							return `background-position: -567px -5px`; // 关机
+						} else if (j + index > 30) {
+							return `background-position: -30px -126px`; // 一般报警
+						} else if (j + index > 12 && j + index < 15) {
+							return `background-position: -167px -126px`; // 严重警告·
+						} else {
+							return `background-position: -30px 0px`;
+						}
+					},
 					value: [index, j]
 				});
 			}
@@ -130,6 +144,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.imgs {
+	display: flex;
+	flex-flow: wrap;
+	flex-direction: row;
+}
+.img-item {
+	display: inline-block;
+	background: url('../../../assets/zaji.png') no-repeat;
+	width: 120px;
+	height: 115px;
+}
 .tab-chart {
 	&__header {
 		display: flex;
