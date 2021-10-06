@@ -20,15 +20,15 @@
 import { mapGetters } from "vuex";
 
 export default {
-  computed: {
-    ...mapGetters(["menuCollapse", "browser", "app"])
-  },
+	computed: {
+		...mapGetters(["menuCollapse", "browser", "app"])
+	},
 
-  methods: {
-    toHome () {
-      // location.href = "https://cool-js.com/";
-    }
-  }
+	methods: {
+		toHome() {
+			// location.href = "https://cool-js.com/";
+		}
+	}
 };
 </script>
 

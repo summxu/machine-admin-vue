@@ -8,15 +8,14 @@ import { BaseService, Service, Permission } from "cl-admin";
 
 @Service("machine/mqtt")
 class Mqtt extends BaseService {
-@Permission("sendmsg")
-  sendmsg(data) {
+	@Permission("sendmsg")
+	sendmsg(data) {
 		return this.request({
 			url: "/sendmsg",
 			method: "POST",
 			data
 		});
-  }
-  
+	}
 }
 
 export default Mqtt;

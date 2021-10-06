@@ -71,78 +71,78 @@
 
 <script>
 export default {
-  data () {
-    return {
-      lowerUserList: [],
-      // 新增、编辑配置
-      upsert: {
-        items: [
-          {
-            label: "指令码",
-            prop: "code",
-            component: {
-              name: "slot-code"
-            }
-          },
-          {
-            label: "指令说明",
-            prop: "codeString",
-            component: {
-              name: "slot-codeString"
-            }
-          },
-          {
-            label: "指令类型",
-            prop: "type",
-            component: {
-              name: "slot-type"
-            }
-          }
-        ]
-      },
-      // 表格配置
-      table: {
-        columns: [
-          {
-            type: "selection",
-            align: "center",
-            width: 60
-          },
-          {
-            label: "指令码",
-            prop: "code",
-            width: 100
-          },
-          {
-            label: "指令说明",
-            align: 'left',
-            prop: "codeString"
-          },
-          {
-            label: "指令类型",
-            prop: "type",
-            width: 100
-          },
-          {
-            label: "创建时间",
-            prop: "createTime",
-            width: 150
-          },
-          {
-            label: "操作",
-            type: "op",
-            align: "center",
-            buttons: ["edit", "delete"]
-          }
-        ]
-      }
-    };
-  },
-  methods: {
-    onLoad ({ ctx, app }) {
-      ctx.service(this.$service.instruct).done();
-      app.refresh();
-    }
-  }
+	data() {
+		return {
+			lowerUserList: [],
+			// 新增、编辑配置
+			upsert: {
+				items: [
+					{
+						label: "指令码",
+						prop: "code",
+						component: {
+							name: "slot-code"
+						}
+					},
+					{
+						label: "指令说明",
+						prop: "codeString",
+						component: {
+							name: "slot-codeString"
+						}
+					},
+					{
+						label: "指令类型",
+						prop: "type",
+						component: {
+							name: "slot-type"
+						}
+					}
+				]
+			},
+			// 表格配置
+			table: {
+				columns: [
+					{
+						type: "selection",
+						align: "center",
+						width: 60
+					},
+					{
+						label: "指令码",
+						prop: "code",
+						width: 100
+					},
+					{
+						label: "指令说明",
+						align: "left",
+						prop: "codeString"
+					},
+					{
+						label: "指令类型",
+						prop: "type",
+						width: 100
+					},
+					{
+						label: "创建时间",
+						prop: "createTime",
+						width: 150
+					},
+					{
+						label: "操作",
+						type: "op",
+						align: "center",
+						buttons: ["edit", "delete"]
+					}
+				]
+			}
+		};
+	},
+	methods: {
+		onLoad({ ctx, app }) {
+			ctx.service(this.$service.instruct).done();
+			app.refresh();
+		}
+	}
 };
 </script>

@@ -1,7 +1,7 @@
 <!--
  * @Author: Chenxu
  * @Date: 2021-03-24 09:57:57
- * @LastEditTime: 2021-06-15 23:17:23
+ * @LastEditTime: 2021-10-06 09:04:32
  * @Msg: Nothing
 -->
 <template>
@@ -59,6 +59,9 @@
 			<template #slot-channelName="{ scope }">
 				<el-input v-model="scope.channelName"></el-input>
 			</template>
+			<template #slot-location="{ scope }">
+				<el-input v-model="scope.location"></el-input>
+			</template>
 			<template #slot-mac="{ scope }">
 				<el-input v-model="scope.mac"></el-input>
 			</template>
@@ -79,155 +82,171 @@
 
 <script>
 export default {
-  data () {
-    return {
-      orderShow: false,
-      tempRow: {},
-      instructList: [],
-      lowerUserList: [],
-      // 新增、编辑配置
-      upsert: {
-        items: [
-          {
-            label: "设备标识",
-            prop: "clientid",
-            component: {
-              name: "slot-clientid"
-            }
-          },
-          {
-            label: "设备名称",
-            prop: "name",
-            component: {
-              name: "slot-name"
-            }
-          },
-          {
-            label: "通道名称",
-            prop: "channelName",
-            component: {
-              name: "slot-channelName"
-            }
-          },
-          {
-            label: "MAC地址",
-            prop: "mac",
-            component: {
-              name: "slot-mac"
-            }
-          },
-          {
-            label: "指派检修员",
-            prop: "maintainer",
-            component: {
-              name: "slot-maintainer"
-            }
-          }
-        ]
-      },
-      // 表格配置
-      table: {
-        columns: [
-          {
-            type: "selection",
-            align: "center",
-            width: 60
-          },
-          {
-            label: "设备标识",
-            prop: "clientid"
-          },
-          {
-            label: "设备名称",
-            prop: "name"
-          },
-          {
-            label: "通道名称",
-            prop: "channelName"
-          },
-          {
-            label: "MAC地址",
-            prop: "mac"
-          },
-          {
-            label: "设备状态",
-            prop: "status",
-            width: 100
-          },
-          {
-            label: "检修人员",
-            prop: "maintainerName",
-            width: 140
-          },
-          {
-            label: "创建人",
-            prop: "userName",
-            width: 120
-          },
-          {
-            label: "创建时间",
-            prop: "createTime",
-            width: 150
-          },
-          {
-            label: "操作",
-            type: "op",
-            align: "center",
-            buttons: ["edit", "delete", ({ h, scope }) => {
-              if (!scope.row.status) return null
-              return h(
-                "el-button",
-                {
-                  props: {
-                    size: "mini",
-                    type: "text"
-                  },
-                  on: {
-                    click: async () => {
-                      const data = await this.$service.instruct.list({ type: 1 })
-                      this.instructList = data
-                      this.orderShow = true
-                      this.tempRow = scope.row
-                    }
-                  }
-                },
-                "指令"
-              )
-            }]
-          }
-        ]
-      }
-    };
-  },
-  methods: {
-    async sendInstruct (code) {
-      try {
-        const data = await this.$service.mqtt.sendmsg({
-          topic: this.tempRow.clientid,
-          code
-        })
-        this.$message.success('指令发送成功!')
-        this.orderShow = false
-      } catch (error) {
-        this.$message.error(error)
-      }
-
-    },
-    onUpsertOpen () {
-      this.getUserList();
-    },
-    onLoad ({ ctx, app }) {
-      ctx.service(this.$service.device).done();
-      app.refresh();
-    },
-    async getUserList () {
-      try {
-        const data = await this.$service.system.user.list();
-        this.lowerUserList = data;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
+	data() {
+		return {
+			orderShow: false,
+			tempRow: {},
+			instructList: [],
+			lowerUserList: [],
+			// 新增、编辑配置
+			upsert: {
+				items: [
+					{
+						label: "设备标识",
+						prop: "clientid",
+						component: {
+							name: "slot-clientid"
+						}
+					},
+					{
+						label: "设备名称",
+						prop: "name",
+						component: {
+							name: "slot-name"
+						}
+					},
+					{
+						label: "设备地点",
+						prop: "location",
+						component: {
+							name: "slot-location"
+						}
+					},
+					{
+						label: "通道名称",
+						prop: "channelName",
+						component: {
+							name: "slot-channelName"
+						}
+					},
+					{
+						label: "MAC地址",
+						prop: "mac",
+						component: {
+							name: "slot-mac"
+						}
+					},
+					{
+						label: "指派检修员",
+						prop: "maintainer",
+						component: {
+							name: "slot-maintainer"
+						}
+					}
+				]
+			},
+			// 表格配置
+			table: {
+				columns: [
+					{
+						type: "selection",
+						align: "center",
+						width: 60
+					},
+					{
+						label: "设备标识",
+						prop: "clientid"
+					},
+					{
+						label: "设备名称",
+						prop: "name"
+					},
+					{
+						label: "设备地点",
+						prop: "location"
+					},
+					{
+						label: "通道名称",
+						prop: "channelName"
+					},
+					{
+						label: "MAC地址",
+						prop: "mac"
+					},
+					{
+						label: "设备状态",
+						prop: "status",
+						width: 100
+					},
+					{
+						label: "检修人员",
+						prop: "maintainerName",
+						width: 140
+					},
+					{
+						label: "创建人",
+						prop: "userName",
+						width: 120
+					},
+					{
+						label: "创建时间",
+						prop: "createTime",
+						width: 150
+					},
+					{
+						label: "操作",
+						type: "op",
+						align: "center",
+						buttons: [
+							"edit",
+							"delete",
+							({ h, scope }) => {
+								if (!scope.row.status) return null;
+								return h(
+									"el-button",
+									{
+										props: {
+											size: "mini",
+											type: "text"
+										},
+										on: {
+											click: async () => {
+												const data = await this.$service.instruct.list({
+													type: 1
+												});
+												this.instructList = data;
+												this.orderShow = true;
+												this.tempRow = scope.row;
+											}
+										}
+									},
+									"指令"
+								);
+							}
+						]
+					}
+				]
+			}
+		};
+	},
+	methods: {
+		async sendInstruct(code) {
+			try {
+				const data = await this.$service.mqtt.sendmsg({
+					topic: this.tempRow.clientid,
+					code
+				});
+				this.$message.success("指令发送成功!");
+				this.orderShow = false;
+			} catch (error) {
+				this.$message.error(error);
+			}
+		},
+		onUpsertOpen() {
+			this.getUserList();
+		},
+		onLoad({ ctx, app }) {
+			ctx.service(this.$service.device).done();
+			app.refresh();
+		},
+		async getUserList() {
+			try {
+				const data = await this.$service.system.user.list();
+				this.lowerUserList = data;
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	}
 };
 </script>

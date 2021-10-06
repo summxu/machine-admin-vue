@@ -43,65 +43,65 @@
 
 <script>
 export default {
-  data () {
-    return {
-      lowerUserList: [],
-      // 新增、编辑配置
-      upsert: {
-        items: [
-          {
-            label: "错误码",
-            prop: "code",
-            component: {
-              name: "slot-code"
-            }
-          },
-          {
-            label: "错误说明",
-            prop: "codeString",
-            component: {
-              name: "slot-codeString"
-            }
-          }
-        ]
-      },
-      // 表格配置
-      table: {
-        columns: [
-          {
-            type: "selection",
-            align: "center",
-            width: 60
-          },
-          {
-            label: "错误码",
-            prop: "code",
-            width: 100
-          },
-          {
-            label: "错误码说明",
-            prop: "codeString"
-          },
-           {
-            label: "创建时间",
-            prop: "createTime",
-            width: 150
-          },
-          {
-            label: "操作",
-            type: "op",
-            align: "center",
-            buttons: ["edit", "delete"]
-          }
-        ]
-      }
-    };
-  },
-  methods: {
-    onLoad ({ ctx, app }) {
-      ctx.service(this.$service.workorder_code).done();
-      app.refresh();
-    }
-  }
+	data() {
+		return {
+			lowerUserList: [],
+			// 新增、编辑配置
+			upsert: {
+				items: [
+					{
+						label: "错误码",
+						prop: "code",
+						component: {
+							name: "slot-code"
+						}
+					},
+					{
+						label: "错误说明",
+						prop: "codeString",
+						component: {
+							name: "slot-codeString"
+						}
+					}
+				]
+			},
+			// 表格配置
+			table: {
+				columns: [
+					{
+						type: "selection",
+						align: "center",
+						width: 60
+					},
+					{
+						label: "错误码",
+						prop: "code",
+						width: 100
+					},
+					{
+						label: "错误码说明",
+						prop: "codeString"
+					},
+					{
+						label: "创建时间",
+						prop: "createTime",
+						width: 150
+					},
+					{
+						label: "操作",
+						type: "op",
+						align: "center",
+						buttons: ["edit", "delete"]
+					}
+				]
+			}
+		};
+	},
+	methods: {
+		onLoad({ ctx, app }) {
+			ctx.service(this.$service.workorder_code).done();
+			app.refresh();
+		}
+	}
 };
 </script>
