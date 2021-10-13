@@ -170,8 +170,11 @@ export default {
 		},
 		async getGroupList(isFOR) {
 			try {
-				const data = await this.$service.device.list();
-				this.deviceData = data;
+				const data = await this.$service.device.page({
+					page: 1,
+					size: 999999
+				});
+				this.deviceData = data.list;
 				this.deviceList = this.deviceData.filter((item) => item.location === this.location);
 				if (isFOR) return;
 				this.groupList = this.deviceData.map((item) => item.location);
