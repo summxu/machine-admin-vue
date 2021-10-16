@@ -31,6 +31,10 @@
         <div class="red-box">
           <div class="red-item" v-for="(item,index) in infoData.infrared" :key="index" :style="{background:redbgc(item)}"></div>
         </div>
+        <div class="red-box-bottom">
+          <el-button @click="sendInstruct('0xa0')" type="primary">左开门</el-button>
+          <el-button @click="sendInstruct('0xa1')" type="primary">右开门</el-button>
+        </div>
       </div>
 
       <div v-if="formData.length">
@@ -251,7 +255,7 @@
             </el-tab-pane>
           </el-tabs>
         </el-form>
-        <el-button @click="sendParams" type="primary">发送</el-button>
+        <el-button size="small" @click="sendParams" type="primary">发送</el-button>
       </div>
     </cl-dialog>
   </div>
@@ -303,7 +307,6 @@ export default {
 
 		setInterval(() => {
 			if (this.currentItem) {
-				this.getGroupList(true);
 				if (this.visible) {
 					this.getInfo();
 				}
@@ -414,6 +417,18 @@ export default {
 			}
 			// loading.close();
 		},
+		async sendInstruct(code) {
+			try {
+				const data = await this.$service.mqtt.sendmsg({
+					topic: this.currentItem.clientid,
+					code
+				});
+				this.$message.success("开门成功!");
+				this.orderShow = false;
+			} catch (error) {
+				this.$message.error(error);
+			}
+		},
 		async sendParams() {
 			try {
 				const data = await this.$service.device.sendParams({
@@ -456,10 +471,17 @@ export default {
 	color: #333;
 }
 .red-box {
-	padding: 30px;
+	padding: 30px 60px;
 	display: flex;
 	flex-flow: nowrap row;
-	justify-content: space-around;
+	justify-content: space-between;
+  margin-bottom: 20px;
+}
+.red-box-bottom {
+	display: flex;
+	flex-flow: nowrap row;
+	justify-content: space-between;
+	padding: 0 32px;
 }
 .red-item {
 	width: 35px;
