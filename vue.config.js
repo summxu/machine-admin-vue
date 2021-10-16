@@ -5,6 +5,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const PROXY_LIST = {
 	"/dev": {
 		target: "http://127.0.0.1:8001",
+		// target: "http://101.34.41.251:8001",
 		changeOrigin: true,
 		pathRewrite: {
 			"^/dev": ""
@@ -12,7 +13,7 @@ const PROXY_LIST = {
 	},
 
 	"/pro": {
-		target: "https://show.cool-admin.com",
+		target: "http://101.34.41.251:8001",
 		changeOrigin: true,
 		pathRewrite: {
 			"^/pro": "/api"
