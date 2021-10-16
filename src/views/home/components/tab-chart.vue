@@ -308,7 +308,7 @@ export default {
 					this.getInfo();
 				}
 			}
-		}, 30000);
+		}, 1000);
 	},
 	watch: {
 		location() {
@@ -355,7 +355,6 @@ export default {
 					}
 					return item;
 				});
-				console.log(this.option.series[0].data);
 			} catch (error) {
 				console.warn(error);
 			}
