@@ -23,240 +23,249 @@
       </div>
     </div>
 
-    <cl-dialog :loading="loading" title="设备信息" width="650px" :visible.sync="visible">
-      <vue-echarts :style="{height:'200px'}" :options="option" autoresize></vue-echarts>
+    <cl-dialog :loading="loading" title="设备信息" width="950px" :visible.sync="visible">
 
-      <div>
-        <p class="title">红外状态</p>
-        <div class="red-box">
-          <div class="red-item" v-for="(item,index) in infoData.infrared" :key="index" :style="{background:redbgc(item)}"></div>
-        </div>
-        <div class="red-box-bottom">
-          <el-button @click="sendInstruct('0xa0')" type="primary">左开门</el-button>
-          <el-button @click="sendInstruct('0xa1')" type="primary">右开门</el-button>
-        </div>
-      </div>
+      <el-row :gutter="18">
+        <el-col :span="16">
+          <vue-echarts :style="{height:'200px'}" :options="option" autoresize></vue-echarts>
+          <div>
+            <p class="title">红外状态</p>
+            <div class="red-box">
+              <div class="red-item" v-for="(item,index) in infoData.infrared" :key="index" :style="{background:redbgc(item)}"></div>
+            </div>
+            <div class="red-box-bottom">
+              <el-button @click="sendInstruct('0xa0')" type="primary">左开门</el-button>
+              <el-button @click="sendInstruct('0xa1')" type="primary">右开门</el-button>
+            </div>
+          </div>
 
-      <div v-if="formData.length">
-        <p class="title">设备参数</p>
-        <el-form size="mini" ref="form" label-width="150px">
-          <el-tabs value="name1">
-            <el-tab-pane label="菜单1" name="name1">
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="出入口开启时长">
-                    <el-input-number style="width: 100%" :min="1" :max="255" v-model="formData[0]"></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="延时开闸时间">
-                    <el-input-number style="width: 100%" :min="1" :max="6" v-model="formData[1]"></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="延时关闸时间">
-                    <el-input-number style="width: 100%" :min="1" :max="6" v-model="formData[2]"></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="开门转速等级">
-                    <el-select v-model="formData[3]">
-                      <el-option label="低速" :value="1">低速</el-option>
-                      <el-option label="高速" :value="2">高速</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="关门转速等级">
-                    <el-select v-model="formData[4]">
-                      <el-option label="低" :value="1">低</el-option>
-                      <el-option label="高" :value="2">高</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="开门扭力等级">
-                    <el-select v-model="formData[5]">
-                      <el-option label="小" :value="1">小</el-option>
-                      <el-option label="中" :value="2">中</el-option>
-                      <el-option label="大" :value="3">大</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-tab-pane>
-            <el-tab-pane label="菜单2" name="name2">
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="关门扭力等级">
-                    <el-select v-model="formData[6]">
-                      <el-option label="小" :value="1">小</el-option>
-                      <el-option label="中" :value="2">中</el-option>
-                      <el-option label="大" :value="3">大</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="是否检测常开门信号">
-                    <el-select v-model="formData[7]">
-                      <el-option label="是" :value="1">是</el-option>
-                      <el-option label="否" :value="2">否</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+          <div v-if="formData.length">
+            <p class="title">设备参数</p>
+            <el-form size="mini" ref="form" label-width="150px">
+              <el-tabs value="name1">
+                <el-tab-pane label="菜单1" name="name1">
+                  <el-row>
+                    <el-col :span="12">
+                      <el-form-item label="出入口开启时长">
+                        <el-input-number style="width: 100%" :min="1" :max="255" v-model="formData[0]"></el-input-number>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="延时开闸时间">
+                        <el-input-number style="width: 100%" :min="1" :max="6" v-model="formData[1]"></el-input-number>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="延时关闸时间">
+                        <el-input-number style="width: 100%" :min="1" :max="6" v-model="formData[2]"></el-input-number>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="开门转速等级">
+                        <el-select v-model="formData[3]">
+                          <el-option label="低速" :value="1">低速</el-option>
+                          <el-option label="高速" :value="2">高速</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="关门转速等级">
+                        <el-select v-model="formData[4]">
+                          <el-option label="低" :value="1">低</el-option>
+                          <el-option label="高" :value="2">高</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="开门扭力等级">
+                        <el-select v-model="formData[5]">
+                          <el-option label="小" :value="1">小</el-option>
+                          <el-option label="中" :value="2">中</el-option>
+                          <el-option label="大" :value="3">大</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-tab-pane>
+                <el-tab-pane label="菜单2" name="name2">
+                  <el-row>
+                    <el-col :span="12">
+                      <el-form-item label="关门扭力等级">
+                        <el-select v-model="formData[6]">
+                          <el-option label="小" :value="1">小</el-option>
+                          <el-option label="中" :value="2">中</el-option>
+                          <el-option label="大" :value="3">大</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="是否检测常开门信号">
+                        <el-select v-model="formData[7]">
+                          <el-option label="是" :value="1">是</el-option>
+                          <el-option label="否" :value="2">否</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
 
-                <el-col :span="12">
-                  <el-form-item label="刷卡是否记忆">
-                    <el-select v-model="formData[8]">
-                      <el-option label="不记忆" :value="1">不记忆</el-option>
-                      <el-option label="记忆" :value="2">记忆</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="左向通行语音">
-                    <el-select v-model="formData[9]">
-                      <el-option label="取消声音" :value="1">取消声音</el-option>
-                      <el-option label="欢迎光临" :value="2">欢迎光临</el-option>
-                      <el-option label="一路顺风" :value="3">一路顺风</el-option>
-                      <el-option label="请进入" :value="4">请进入</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="右向通行语音">
-                    <el-select v-model="formData[10]">
-                      <el-option label="取消声音" :value="1">取消声音</el-option>
-                      <el-option label="欢迎光临" :value="2">欢迎光临</el-option>
-                      <el-option label="一路顺风" :value="3">一路顺风</el-option>
-                      <el-option label="请进入" :value="4">请进入</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="尾随进入语音">
-                    <el-select v-model="formData[11]">
-                      <el-option label="没声音" :value="1">没声音</el-option>
-                      <el-option label="尾随进入" :value="2">尾随进入</el-option>
-                      <el-option label="请刷卡" :value="3">请刷卡</el-option>
-                      <el-option label="请勿尾随" :value="4">请勿尾随</el-option>
-                      <el-option label="非法闯入" :value="5">非法闯入</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="刷卡是否记忆">
+                        <el-select v-model="formData[8]">
+                          <el-option label="不记忆" :value="1">不记忆</el-option>
+                          <el-option label="记忆" :value="2">记忆</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="左向通行语音">
+                        <el-select v-model="formData[9]">
+                          <el-option label="取消声音" :value="1">取消声音</el-option>
+                          <el-option label="欢迎光临" :value="2">欢迎光临</el-option>
+                          <el-option label="一路顺风" :value="3">一路顺风</el-option>
+                          <el-option label="请进入" :value="4">请进入</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="右向通行语音">
+                        <el-select v-model="formData[10]">
+                          <el-option label="取消声音" :value="1">取消声音</el-option>
+                          <el-option label="欢迎光临" :value="2">欢迎光临</el-option>
+                          <el-option label="一路顺风" :value="3">一路顺风</el-option>
+                          <el-option label="请进入" :value="4">请进入</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="尾随进入语音">
+                        <el-select v-model="formData[11]">
+                          <el-option label="没声音" :value="1">没声音</el-option>
+                          <el-option label="尾随进入" :value="2">尾随进入</el-option>
+                          <el-option label="请刷卡" :value="3">请刷卡</el-option>
+                          <el-option label="请勿尾随" :value="4">请勿尾随</el-option>
+                          <el-option label="非法闯入" :value="5">非法闯入</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
 
-              </el-row>
-            </el-tab-pane>
-            <el-tab-pane label="菜单3" name="name3">
-              <el-row>
+                  </el-row>
+                </el-tab-pane>
+                <el-tab-pane label="菜单3" name="name3">
+                  <el-row>
 
-                <el-col :span="12">
-                  <el-form-item label="非法闯入语音">
-                    <el-select v-model="formData[12]">
-                      <el-option label="没声音" :value="1">没声音</el-option>
-                      <el-option label="非法闯入请刷卡" :value="2">非法闯入请刷卡</el-option>
-                      <el-option label="请刷卡" :value="3">请刷卡</el-option>
-                      <el-option label="未授权" :value="4">未授权</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="反向进入提示语音">
-                    <el-select v-model="formData[13]">
-                      <el-option label="取消声音" :value="1">取消声音</el-option>
-                      <el-option label="反向进入" :value="2">反向进入</el-option>
-                      <el-option label="请勿反向进入" :value="3">请勿反向进入</el-option>
-                      <el-option label="请刷卡" :value="4">请刷卡</el-option>
-                      <el-option label="非法闯入" :value="5">非法闯入</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="非法闯入语音">
+                        <el-select v-model="formData[12]">
+                          <el-option label="没声音" :value="1">没声音</el-option>
+                          <el-option label="非法闯入请刷卡" :value="2">非法闯入请刷卡</el-option>
+                          <el-option label="请刷卡" :value="3">请刷卡</el-option>
+                          <el-option label="未授权" :value="4">未授权</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="反向进入提示语音">
+                        <el-select v-model="formData[13]">
+                          <el-option label="取消声音" :value="1">取消声音</el-option>
+                          <el-option label="反向进入" :value="2">反向进入</el-option>
+                          <el-option label="请勿反向进入" :value="3">请勿反向进入</el-option>
+                          <el-option label="请刷卡" :value="4">请刷卡</el-option>
+                          <el-option label="非法闯入" :value="5">非法闯入</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
 
-                <el-col :span="12">
-                  <el-form-item label="反向闯入处理方式">
-                    <el-select v-model="formData[15]">
-                      <el-option label="不处理反向进入" :value="1">不处理反向进入</el-option>
-                      <el-option label="反向进入只是语音报警" :value="2">反向进入只是语音报警</el-option>
-                      <el-option label="反向进入语音报警并 检测防夹是否有人，没人立即关门，防夹有人就不关门" :value="3">反向进入语音报警并 检测防夹是否有人，没人立即关门，防夹有人就不关门</el-option>
-                      <el-option label="反向进入语音报警并 检测防夹是否有人，没人立即关门，防夹有人就不关门,关门后信号撤离就再开门" :value="4">反向进入语音报警并 检测防夹是否有人，没人立即关门，防夹有人就不关门,关门后信号撤离就再开门</el-option>
-                      <el-option label="反向进入语音报警并强制关门，不论通道是否有人" :value="5">反向进入语音报警并强制关门，不论通道是否有人</el-option>
-                      <el-option label="反向进入语音报警并强制关门后 如反向信号撤销，再开门" :value="5">反向进入语音报警并强制关门后 如反向信号撤销，再开门</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="尾随进入处理方式">
-                    <el-select v-model="formData[16]">
-                      <el-option label="不处理尾随" :value="1">不处理尾随</el-option>
-                      <el-option label="尾随只语音报警" :value="2">尾随只语音报警</el-option>
-                      <el-option label="尾随只要防夹信号没人就立即关门" :value="3">尾随只要防夹信号没人就立即关门</el-option>
-                      <el-option label="尾随立即关门，不考虑防夹信号" :value="4">尾随立即关门，不考虑防夹信号</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="防夹处理方式">
-                    <el-select v-model="formData[17]">
-                      <el-option label="不处理防夹" :value="1">不处理防夹</el-option>
-                      <el-option label="通行方向的第二对红外为防夹" :value="2">通行方向的第二对红外为防夹</el-option>
-                      <el-option label="通行方向的前两对红外为防夹" :value="3">通行方向的前两对红外为防夹</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="反向闯入处理方式">
+                        <el-select v-model="formData[15]">
+                          <el-option label="不处理反向进入" :value="1">不处理反向进入</el-option>
+                          <el-option label="反向进入只是语音报警" :value="2">反向进入只是语音报警</el-option>
+                          <el-option label="反向进入语音报警并 检测防夹是否有人，没人立即关门，防夹有人就不关门" :value="3">反向进入语音报警并 检测防夹是否有人，没人立即关门，防夹有人就不关门</el-option>
+                          <el-option label="反向进入语音报警并 检测防夹是否有人，没人立即关门，防夹有人就不关门,关门后信号撤离就再开门" :value="4">反向进入语音报警并 检测防夹是否有人，没人立即关门，防夹有人就不关门,关门后信号撤离就再开门</el-option>
+                          <el-option label="反向进入语音报警并强制关门，不论通道是否有人" :value="5">反向进入语音报警并强制关门，不论通道是否有人</el-option>
+                          <el-option label="反向进入语音报警并强制关门后 如反向信号撤销，再开门" :value="5">反向进入语音报警并强制关门后 如反向信号撤销，再开门</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="尾随进入处理方式">
+                        <el-select v-model="formData[16]">
+                          <el-option label="不处理尾随" :value="1">不处理尾随</el-option>
+                          <el-option label="尾随只语音报警" :value="2">尾随只语音报警</el-option>
+                          <el-option label="尾随只要防夹信号没人就立即关门" :value="3">尾随只要防夹信号没人就立即关门</el-option>
+                          <el-option label="尾随立即关门，不考虑防夹信号" :value="4">尾随立即关门，不考虑防夹信号</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="防夹处理方式">
+                        <el-select v-model="formData[17]">
+                          <el-option label="不处理防夹" :value="1">不处理防夹</el-option>
+                          <el-option label="通行方向的第二对红外为防夹" :value="2">通行方向的第二对红外为防夹</el-option>
+                          <el-option label="通行方向的前两对红外为防夹" :value="3">通行方向的前两对红外为防夹</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
 
-                <el-col :span="12">
-                  <el-form-item label="音量调节">
-                    <el-slider v-model="formData[14]"></el-slider>
-                  </el-form-item>
-                </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="音量调节">
+                        <el-slider v-model="formData[14]"></el-slider>
+                      </el-form-item>
+                    </el-col>
 
-              </el-row>
-            </el-tab-pane>
-            <el-tab-pane label="菜单4" name="name4">
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="尾随进入处理方式">
-                    <el-select v-model="formData[18]">
-                      <el-option label="通过第三对红外后关门" :value="1">通过第三对红外后关门</el-option>
-                      <el-option label="通过防夹红外后关门（防夹功能失效，因为与防夹功能冲突）" :value="2">通过防夹红外后关门（防夹功能失效，因为与防夹功能冲突）</el-option>
-                      <el-option label="触发第三队红外后关门" :value="3">触发第三队红外后关门</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="尾随进入处理方式">
-                    <el-select v-model="formData[19]">
-                      <el-option label="不开门" :value="1">不开门</el-option>
-                      <el-option label="左开" :value="2">左开</el-option>
-                      <el-option label="右开" :value="3">右开</el-option>
-                      <el-option label="双开" :value="4">双开</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="断电开闸设置">
-                    <el-select v-model="formData[20]">
-                      <el-option label="断电不开闸" :value="1">断电不开闸</el-option>
-                      <el-option label="断电左开" :value="2">断电左开</el-option>
-                      <el-option label="断电右开" :value="3">断电右开</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="播放语言类型">
-                    <el-select v-model="formData[21]">
-                      <el-option label="中文" :value="1">中文</el-option>
-                      <el-option label="英文" :value="2">英文</el-option>
-                      <el-option label="阿拉伯语" :value="3">阿拉伯语</el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-tab-pane>
-          </el-tabs>
-        </el-form>
-        <el-button size="small" @click="sendParams" type="primary">发送</el-button>
-      </div>
+                  </el-row>
+                </el-tab-pane>
+                <el-tab-pane label="菜单4" name="name4">
+                  <el-row>
+                    <el-col :span="12">
+                      <el-form-item label="尾随进入处理方式">
+                        <el-select v-model="formData[18]">
+                          <el-option label="通过第三对红外后关门" :value="1">通过第三对红外后关门</el-option>
+                          <el-option label="通过防夹红外后关门（防夹功能失效，因为与防夹功能冲突）" :value="2">通过防夹红外后关门（防夹功能失效，因为与防夹功能冲突）</el-option>
+                          <el-option label="触发第三队红外后关门" :value="3">触发第三队红外后关门</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="尾随进入处理方式">
+                        <el-select v-model="formData[19]">
+                          <el-option label="不开门" :value="1">不开门</el-option>
+                          <el-option label="左开" :value="2">左开</el-option>
+                          <el-option label="右开" :value="3">右开</el-option>
+                          <el-option label="双开" :value="4">双开</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="断电开闸设置">
+                        <el-select v-model="formData[20]">
+                          <el-option label="断电不开闸" :value="1">断电不开闸</el-option>
+                          <el-option label="断电左开" :value="2">断电左开</el-option>
+                          <el-option label="断电右开" :value="3">断电右开</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="播放语言类型">
+                        <el-select v-model="formData[21]">
+                          <el-option label="中文" :value="1">中文</el-option>
+                          <el-option label="英文" :value="2">英文</el-option>
+                          <el-option label="阿拉伯语" :value="3">阿拉伯语</el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-tab-pane>
+              </el-tabs>
+            </el-form>
+            <el-button size="small" @click="sendParams" type="primary">发送</el-button>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <p class="title">设备日志</p>
+          <textarea disabled class="log-box" :value="logs"></textarea>
+        </el-col>
+      </el-row>
+
     </cl-dialog>
   </div>
 </template>
@@ -271,6 +280,7 @@ export default {
 	data() {
 		return {
 			loading: false,
+			logs: "",
 			location: "",
 			deviceData: [],
 			infoData: {},
@@ -358,6 +368,8 @@ export default {
 					}
 					return item;
 				});
+
+				this.logs = res.log.join("\n");
 			} catch (error) {
 				console.warn(error);
 			}
@@ -475,13 +487,13 @@ export default {
 	display: flex;
 	flex-flow: nowrap row;
 	justify-content: space-between;
-  margin-bottom: 20px;
 }
 .red-box-bottom {
 	display: flex;
 	flex-flow: nowrap row;
 	justify-content: space-between;
 	padding: 0 32px;
+	margin-bottom: 20px;
 }
 .red-item {
 	width: 35px;
@@ -555,6 +567,14 @@ export default {
 			height: 100%;
 			width: 100%;
 		}
+	}
+
+	.log-box {
+		resize: none;
+		height: 100%;
+		width: 100%;
+		margin-top: 15px;
+		height: 550px;
 	}
 }
 </style>
