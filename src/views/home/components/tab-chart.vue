@@ -52,12 +52,12 @@
                     </el-col>
                     <el-col :span="12">
                       <el-form-item label="延时开闸时间">
-                        <el-input-number style="width: 100%" :min="1" :max="6" v-model="formData[1]"></el-input-number>
+                        <el-input-number style="width: 100%" :min="0" :max="5" :value="formData[1] - 1" @change="timeOnly($event,1)"></el-input-number>
                       </el-form-item>
                     </el-col>
                     <el-col :span="12">
                       <el-form-item label="延时关闸时间">
-                        <el-input-number style="width: 100%" :min="1" :max="6" v-model="formData[2]"></el-input-number>
+                        <el-input-number style="width: 100%" :min="0" :max="5" :value="formData[2] - 1" @change="timeOnly($event,2)"></el-input-number>
                       </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -217,7 +217,7 @@
                 <el-tab-pane label="菜单4" name="name4">
                   <el-row>
                     <el-col :span="12">
-                      <el-form-item label="尾随进入处理方式">
+                      <el-form-item label="关门模式选择">
                         <el-select v-model="formData[18]">
                           <el-option label="通过第三对红外后关门" :value="1">通过第三对红外后关门</el-option>
                           <el-option label="通过防夹红外后关门（防夹功能失效，因为与防夹功能冲突）" :value="2">通过防夹红外后关门（防夹功能失效，因为与防夹功能冲突）</el-option>
@@ -226,7 +226,7 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                      <el-form-item label="尾随进入处理方式">
+                      <el-form-item label="红外开门设置">
                         <el-select v-model="formData[19]">
                           <el-option label="不开门" :value="1">不开门</el-option>
                           <el-option label="左开" :value="2">左开</el-option>
@@ -395,6 +395,9 @@ export default {
 			}
 			return `设备：${item.name}<br>
               状态：${str}`;
+		},
+		timeOnly(e, index) {
+			this.formData[index] = e + 1;
 		},
 		// 精灵图大小
 		bgcPositon(item) {
