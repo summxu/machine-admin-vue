@@ -28,16 +28,25 @@
       <el-row :gutter="18">
         <el-col :span="16">
           <vue-echarts :style="{height:'200px'}" :options="option" autoresize></vue-echarts>
-          <div>
-            <p class="title">红外状态</p>
-            <div class="red-box">
-              <div class="red-item" v-for="(item,index) in infoData.infrared" :key="index" :style="{background:redbgc(item)}"></div>
-            </div>
-            <div class="red-box-bottom">
-              <el-button @click="sendInstruct('0xa0')" type="primary">左开门</el-button>
-              <el-button @click="sendInstruct('0xa1')" type="primary">右开门</el-button>
-            </div>
-          </div>
+          <el-row :gutter="18">
+            <el-col :span="16">
+              <p class="title">红外状态</p>
+              <div class="red-box">
+                <div class="red-item" v-for="(item,index) in infoData.infrared" :key="index" :style="{background:redbgc(item)}"></div>
+              </div>
+              <div class="red-box-bottom">
+                <el-button @click="sendInstruct('0xa0')" type="primary">左开门</el-button>
+                <el-button @click="sendInstruct('0xa1')" type="primary">右开门</el-button>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <p class="title">消防状态</p>
+              <div class="red-box">
+                <div v-if="infoData.fire" class="red-item" :style="{background:'red'}"></div>
+                <div v-else class="red-item" :style="{background:'green'}"></div>
+              </div>
+            </el-col>
+          </el-row>
 
           <div v-if="formData.length">
             <p class="title">设备参数</p>
