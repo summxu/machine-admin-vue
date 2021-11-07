@@ -43,7 +43,7 @@
               <p class="title">消防状态</p>
               <div class="red-box">
                 <div v-if="infoData.fire" class="red-item" :style="{background:'red'}"></div>
-                <div v-else class="red-item" :style="{background:'green'}"></div>
+                <div v-else class="red-item" :style="{background:'rgb(144, 147, 153)'}"></div>
               </div>
             </el-col>
           </el-row>
@@ -322,9 +322,10 @@ export default {
 	computed: {},
 	created() {
 		// 轮询请求
-		this.getGroupList();
 
+		this.getGroupList();
 		setInterval(() => {
+			this.getGroupList(true);
 			if (this.currentItem) {
 				if (this.visible) {
 					this.getInfo();

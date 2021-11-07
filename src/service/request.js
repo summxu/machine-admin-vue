@@ -14,8 +14,11 @@ NProgress.configure({
 
 // 忽略规则
 const ignore = {
-	NProgress: ["/sys/info/record"],
-	token: ["/login", "/captcha"]
+	NProgress: ["/sys/info/record",
+  "/admin/machine/device/page",
+  "/admin/machine/device/info"
+  ],
+	token: ["/login", "/captcha"],
 };
 
 // 请求队列
